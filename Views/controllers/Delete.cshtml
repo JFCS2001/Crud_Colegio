@@ -1,4 +1,4 @@
-﻿@model Crud_Colegio.Models.Entities.Usuario
+﻿@model Crud_Colegio.Models.Usuario
 
 @{
     ViewData["Title"] = "Delete";
@@ -24,10 +24,10 @@
             @Html.DisplayFor(model => model.Date_User)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Edad_USer)
+            @Html.DisplayNameFor(model => model.NumDoc_User)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Edad_USer)
+            @Html.DisplayFor(model => model.NumDoc_User)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email_User)
@@ -41,11 +41,23 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NumTel_User)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Documentos.Nombre_Doc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Documentos.Nombre_Doc)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Roles.Nombre_Rol)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Roles.Nombre_Rol)
+        </dd>
     </dl>
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id_User" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </form>
 </div>
