@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using static Crud_Colegio.Models.Entities;
 
 namespace Crud_Colegio.Controllers
 {
