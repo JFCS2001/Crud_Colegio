@@ -6,12 +6,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
+	<!--
+	<ItemGroup>
     <Compile Remove="Views\Home\Users\**" />
     <Content Remove="Views\Home\Users\**" />
     <EmbeddedResource Remove="Views\Home\Users\**" />
     <None Remove="Views\Home\Users\**" />
   </ItemGroup>
+    -->
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />

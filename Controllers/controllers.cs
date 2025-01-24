@@ -17,7 +17,7 @@ namespace Crud_Colegio.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            var usuarios = await _context.Usuario.Include(u => u.Id_Doc).Include(u => u.Id_Rol).ToListAsync();
+            var usuarios = await _context.Usuario.Include(u => u.Documentos).Include(u => u.Roles).ToListAsync();
             return View(usuarios);
         }
 
@@ -30,8 +30,8 @@ namespace Crud_Colegio.Controllers
             }
 
             var usuario = await _context.Usuario
-                .Include(u => u.Id_Doc)
-                .Include(u => u.Id_Rol)
+                .Include(u => u.Documentos)
+                .Include(u => u.Roles)
                 .FirstOrDefaultAsync(m => m.Id_User == id);
 
             if (usuario == null)
@@ -53,7 +53,8 @@ namespace Crud_Colegio.Controllers
         // POST: Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id_User,Id_Rol,Id_Doc,Nombre_User,Date_User,Email_User,NumTel_User")] Usuario usuario)
+
+        public async Task<IActionResult> Create([Bind("Id_User,Id_Rol,Id_Doc,Nombre_User,Edad_User,NumDoc_User,Date_User,Email_User,NumTel_User")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -61,10 +62,18 @@ namespace Crud_Colegio.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            else
+            {
+                foreach (var error in ModelState)
+                {
+                    Console.WriteLine($"Key: {error.Key}, Error: {string.Join(", ", error.Value.Errors.Select(e => e.ErrorMessage))}");
+                }
+            }
             ViewData["Id_Doc"] = new SelectList(_context.Documentos, "Id_Doc", "Nombre_Doc", usuario.Id_Doc);
             ViewData["Id_Rol"] = new SelectList(_context.Roles, "Id_Rol", "Nombre_Rol", usuario.Id_Rol);
             return View(usuario);
         }
+
 
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -87,7 +96,7 @@ namespace Crud_Colegio.Controllers
         // POST: Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id_User,Id_Rol,Id_Doc,Nombre_User,Date_User,Email_User,NumTel_User")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id_User,Id_Rol,Id_Doc,Nombre_User,Edad_User,NumDoc_User,Date_User,Email_User,NumTel_User")] Usuario usuario)
         {
             if (id != usuario.Id_User)
             {
@@ -128,8 +137,8 @@ namespace Crud_Colegio.Controllers
             }
 
             var usuario = await _context.Usuario
-                .Include(u => u.Id_Doc)
-                .Include(u => u.Id_Rol)
+                .Include(u => u.Documentos)
+                .Include(u => u.Roles)
                 .FirstOrDefaultAsync(m => m.Id_User == id);
 
             if (usuario == null)
@@ -157,3 +166,4 @@ namespace Crud_Colegio.Controllers
         }
     }
 }
+
