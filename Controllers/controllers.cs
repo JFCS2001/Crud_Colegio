@@ -56,19 +56,8 @@ namespace Crud_Colegio.Controllers
 
         public async Task<IActionResult> Create([Bind("Id_User,Id_Rol,Id_Doc,Nombre_User,Edad_User,NumDoc_User,Date_User,Email_User,NumTel_User")] Usuario usuario)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(usuario);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                foreach (var error in ModelState)
-                {
-                    Console.WriteLine($"Key: {error.Key}, Error: {string.Join(", ", error.Value.Errors.Select(e => e.ErrorMessage))}");
-                }
-            }
+            _context.Add(usuario);
+            await _context.SaveChangesAsync();
             ViewData["Id_Doc"] = new SelectList(_context.Documentos, "Id_Doc", "Nombre_Doc", usuario.Id_Doc);
             ViewData["Id_Rol"] = new SelectList(_context.Roles, "Id_Rol", "Nombre_Rol", usuario.Id_Rol);
             return View(usuario);
